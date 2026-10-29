@@ -1,6 +1,6 @@
 # Tiago Perrupato — Personal website
 
-A two-page portfolio in English, implemented with original HTML and CSS. Public projects are listed with comparable visual weight. The first item is Enter Decision Platform; private research and employment are described in the experience section.
+A two-page portfolio in English, implemented with original HTML, CSS and a small progressive-enhancement script. Public projects are listed with comparable visual weight. The first item is Enter Decision Platform; private research and employment are described in the experience section.
 
 ## Local preview
 
@@ -23,3 +23,7 @@ The portrait is Tiago's selected LinkedIn photograph. The project image is the p
 ## Publishing
 
 GitHub Pages serves the main branch at https://tiagoperrupato.github.io/. Changes to source files trigger a build. Confirm the latest deployment succeeds before reporting a publication complete.
+
+## Visual interactions
+
+`assets/site.js` adds project filters, a persistent light/dark theme, section navigation and email copying. Projects and native expandable details remain available without JavaScript. The CSS respects reduced-motion preferences.
