@@ -1,8 +1,7 @@
 (() => {
   const root = document.documentElement;
   const toggle = document.querySelector('.theme-toggle');
-  let saved;
-  try { saved = localStorage.getItem('portfolio-theme'); } catch {}
+  let manualTheme = window.portfolioTheme.readSaved();
   function setTheme(theme) {
     root.dataset.theme = theme;
     if (!toggle) return;
@@ -11,11 +10,18 @@
     toggle.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#101923' : '#f7f8fa');
   }
-  setTheme(saved === 'dark' ? 'dark' : 'light');
+  setTheme(window.portfolioTheme.resolve());
+  const updateSystemTheme = () => { if (!manualTheme) setTheme(window.portfolioTheme.resolve()); };
+  for (const query of ['(prefers-color-scheme: light)', '(prefers-color-scheme: dark)']) {
+    const media = window.matchMedia?.(query);
+    if (media?.addEventListener) media.addEventListener('change', updateSystemTheme);
+    else if (media?.addListener) media.addListener(updateSystemTheme);
+  }
   if (toggle) {
     toggle.hidden = false;
     toggle.addEventListener('click', () => {
       const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      manualTheme = theme;
       setTheme(theme);
       try { localStorage.setItem('portfolio-theme', theme); } catch {}
     });
